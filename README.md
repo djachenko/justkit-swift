@@ -144,10 +144,13 @@ as long as the resolve call, so nothing leaks into the parent graph.
   is a closure — `swift-frontend` traps in SIL while emitting a reabstraction
   thunk, with no diagnostic. Register such types explicitly with
   `container.register` until this is resolved.
+- **Default parameter values are not honored.** An initializer becomes a plain
+  function value, and defaults do not survive that: `init(id: String = "x")`
+  makes `autoregister` look for a registered `String` and trap when there is
+  none. Give such types an initializer without defaults.
 - **`autoregisterOnMain` erases isolation unsafely.** The `precondition` turns a
   wrong-thread resolve into a loud trap rather than a race, but it is a
   precondition, not a proof.
-- `JustKitDI` has no test coverage yet.
 
 ## License
 

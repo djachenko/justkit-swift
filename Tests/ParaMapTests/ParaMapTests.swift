@@ -61,3 +61,68 @@ private final class Service {
 
     #expect(container.resolve(Service.self, params: ParaMap("passed")) == nil)
 }
+
+private final class Wide {
+    let values: [String]
+
+    init(a: String, b: Int, c: Double, d: Bool, e: Dependency) {
+        values = ["\(a)", "\(b)", "\(c)", "\(d)", e.id]
+    }
+}
+
+private final class ResolverHolder {
+    let resolvedTitle: String
+
+    init(resolver: Resolver) {
+        resolvedTitle = resolver.resolve(String.self) ?? "missing"
+    }
+}
+
+@Test func lastValueOfATypeWins() {
+    let container = Container()
+    container.register(Service.self) { r in
+        Service(dependency: Dependency(id: "x"), title: r.resolve(String.self)!)
+    }
+
+    var params = ParaMap("first")
+    params.set("second")
+
+    #expect(container.resolve(Service.self, params: params)?.title == "second")
+}
+
+@Test func fiveValuesAreSupported() {
+    let container = Container()
+    container.register(Wide.self) { r in
+        Wide(
+            a: r.resolve(String.self)!,
+            b: r.resolve(Int.self)!,
+            c: r.resolve(Double.self)!,
+            d: r.resolve(Bool.self)!,
+            e: r.resolve(Dependency.self)!
+        )
+    }
+
+    let wide: Wide = container ~> (Wide.self, with: "a", 1, 2.5, true, Dependency(id: "dep"))
+
+    #expect(wide.values == ["a", "1", "2.5", "true", "dep"])
+}
+
+@Test func resolverInsideTheGraphIsTheChildContainer() {
+    let container = Container()
+    container.register(ResolverHolder.self) { r in
+        ResolverHolder(resolver: r.resolve(Resolver.self)!)
+    }
+
+    // Родительский резолвер значения не видит, поэтому "passed" здесь доказывает,
+    // что зависимости достаётся именно дочерний контейнер.
+    let holder: ResolverHolder = container ~> (ResolverHolder.self, with: "passed")
+
+    #expect(holder.resolvedTitle == "passed")
+}
+
+@Test func anEmptyParaMapIsHarmless() {
+    let container = Container()
+    container.register(Dependency.self) { _ in Dependency(id: "shared") }
+
+    #expect(container.resolve(Dependency.self, params: ParaMap())?.id == "shared")
+}

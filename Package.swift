@@ -19,6 +19,7 @@ let package = Package(
         .target(name: "ParaMap", dependencies: ["Swinject"]),
         .target(name: "JustKitDI", dependencies: ["JustKit", "Swinject", "SwinjectAutoregistration"]),
         .testTarget(name: "JustKitTests", dependencies: ["JustKit"]),
-        .testTarget(name: "ParaMapTests", dependencies: ["ParaMap"])
+        .testTarget(name: "ParaMapTests", dependencies: ["ParaMap"]),
+        .testTarget(name: "JustKitDITests", dependencies: ["JustKitDI"])
     ]
 )
