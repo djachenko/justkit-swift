@@ -1,0 +1,25 @@
+name: Tests
+
+# Свой workflow, а не вызов repokit: swift-варианта там пока нет.
+# Когда появится — заменить на uses: djachenko/repokit/.github/workflows/swift-tests.yml
+
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
+
+jobs:
+  tests:
+    # Пакет объявляет .iOS и .macOS, но сборка идёт под хост — нужен macOS-раннер.
+    runs-on: macos-15
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Build
+        run: swift build
+
+      - name: Test
+        run: swift test
