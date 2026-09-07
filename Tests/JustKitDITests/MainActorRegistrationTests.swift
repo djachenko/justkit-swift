@@ -1,6 +1,6 @@
+@testable import JustKitDI
 import Swinject
 import Testing
-@testable import JustKitDI
 
 private final class Settings {
     let tankSize = 5

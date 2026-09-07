@@ -1,0 +1,7 @@
+# Вложенный конфиг: в тестах ! и try! — это способ уронить тест на месте ошибки,
+# а не риск в проде.
+
+disabled_rules:
+  - force_unwrapping
+  - force_try
+  - force_cast

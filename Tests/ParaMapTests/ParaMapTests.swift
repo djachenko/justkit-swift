@@ -1,6 +1,6 @@
+@testable import ParaMap
 import Swinject
 import Testing
-@testable import ParaMap
 
 private final class Dependency {
     let id: String

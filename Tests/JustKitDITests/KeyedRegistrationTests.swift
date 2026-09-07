@@ -1,6 +1,6 @@
+@testable import JustKitDI
 import Swinject
 import Testing
-@testable import JustKitDI
 
 private enum Category: String, ServiceKeyOption {
     case feed

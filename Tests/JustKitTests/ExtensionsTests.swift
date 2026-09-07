@@ -1,7 +1,7 @@
 import CoreGraphics
 import Foundation
-import Testing
 @testable import JustKit
+import Testing
 
 @Test func clampedKeepsValueInsideRange() {
     #expect(5.clamped(to: 0...10) == 5)

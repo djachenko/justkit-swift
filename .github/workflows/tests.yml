@@ -18,6 +18,13 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - name: Lint
+        # На macOS-раннерах SwiftLint предустановлен; brew — страховка на случай,
+        # если его выкинут из образа.
+        run: |
+          which swiftlint || brew install swiftlint
+          swiftlint --strict
+
       - name: Build
         run: swift build
 

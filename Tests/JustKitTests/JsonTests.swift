@@ -1,6 +1,6 @@
 import Foundation
-import Testing
 @testable import JustKit
+import Testing
 
 private struct Config: Codable, Equatable {
     let name: String

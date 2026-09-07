@@ -1,6 +1,6 @@
 import Foundation
-import Testing
 @testable import JustKit
+import Testing
 
 private enum Theme: String {
     case light

@@ -12,14 +12,18 @@ public func ~> <T, A, B>(resolver: Resolver, pair: (T.Type, with: A, B)) -> T {
     resolved(pair.0, from: resolver, params: ParaMap(pair.1, pair.2))
 }
 
+// Кортеж здесь — форма вызова, а не структура данных: (Тип, with: значения).
+// swiftlint:disable:next large_tuple
 public func ~> <T, A, B, C>(resolver: Resolver, pair: (T.Type, with: A, B, C)) -> T {
     resolved(pair.0, from: resolver, params: ParaMap(pair.1, pair.2, pair.3))
 }
 
+// swiftlint:disable:next large_tuple
 public func ~> <T, A, B, C, D>(resolver: Resolver, pair: (T.Type, with: A, B, C, D)) -> T {
     resolved(pair.0, from: resolver, params: ParaMap(pair.1, pair.2, pair.3, pair.4))
 }
 
+// swiftlint:disable:next large_tuple
 public func ~> <T, A, B, C, D, E>(resolver: Resolver, pair: (T.Type, with: A, B, C, D, E)) -> T {
     resolved(pair.0, from: resolver, params: ParaMap(pair.1, pair.2, pair.3, pair.4, pair.5))
 }
