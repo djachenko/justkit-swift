@@ -1,5 +1,5 @@
-# Вложенный конфиг: в тестах ! и try! — это способ уронить тест на месте ошибки,
-# а не риск в проде.
+# Nested over the root .swiftlint.yml, for Tests/ only: in a test, !, try! and
+# as! fail the test right where the assumption broke — not a risk to ship.
 
 disabled_rules:
   - force_unwrapping

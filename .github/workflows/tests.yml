@@ -1,32 +1,14 @@
 name: Tests
 
-# Свой workflow, а не вызов repokit: swift-варианта там пока нет.
-# Когда появится — заменить на uses: djachenko/repokit/.github/workflows/swift-tests.yml
-
 on:
   push:
     branches:
       - '**'
+      - '!master'
     tags-ignore:
       - '**'
 
 jobs:
   tests:
-    # Пакет объявляет .iOS и .macOS, но сборка идёт под хост — нужен macOS-раннер.
-    runs-on: macos-15
-
-    steps:
-      - uses: actions/checkout@v6
-
-      - name: Lint
-        # На macOS-раннерах SwiftLint предустановлен; brew — страховка на случай,
-        # если его выкинут из образа.
-        run: |
-          which swiftlint || brew install swiftlint
-          swiftlint --strict
-
-      - name: Build
-        run: swift build
-
-      - name: Test
-        run: swift test
+    uses: djachenko/repokit/.github/workflows/swift-tests.yml@0.12
+    secrets: inherit
