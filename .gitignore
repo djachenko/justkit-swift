@@ -3,3 +3,4 @@
 *.xcodeproj
 Package.resolved
 _claude
+.repokit
